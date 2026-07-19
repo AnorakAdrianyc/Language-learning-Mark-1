@@ -1,0 +1,51 @@
+version: 0.1
+name: hk-workplace-chinese-agentic-system
+objective: >-
+  Improve Hong Kong workplace Chinese writing and technical reading using
+  a KAG (Knowledge-Augmented Generation) workflow.
+
+agents:
+  - id: intake_agent
+    role: Capture user intent and classify task type.
+    inputs: [raw_text]
+    outputs: [task_type, constraints]
+
+  - id: retrieval_agent
+    role: Retrieve relevant nodes from KAG graph (phrases, templates, tone guides).
+    inputs: [task_type, constraints]
+    outputs: [context_nodes, context_links]
+
+  - id: drafting_agent
+    role: Produce first draft in formal HK Traditional Chinese.
+    inputs: [raw_text, context_nodes]
+    outputs: [draft_text]
+
+  - id: review_agent
+    role: Improve clarity, structure, and professional tone.
+    inputs: [draft_text, constraints]
+    outputs: [revised_text]
+
+  - id: hk_tone_agent
+    role: Validate local HK usage with HKChat-style cultural checks.
+    inputs: [revised_text]
+    outputs: [tone_feedback, final_text]
+
+  - id: memory_agent
+    role: Store reusable phrases and correction history into KAG graph.
+    inputs: [final_text, tone_feedback]
+    outputs: [updated_nodes]
+
+workflows:
+  - id: email_reply
+    steps: [intake_agent, retrieval_agent, drafting_agent, review_agent, hk_tone_agent, memory_agent]
+
+  - id: report_summary
+    steps: [intake_agent, retrieval_agent, drafting_agent, review_agent, hk_tone_agent, memory_agent]
+
+  - id: technical_reading
+    steps: [intake_agent, retrieval_agent, review_agent, memory_agent]
+
+success_metrics:
+  - faster_response_time
+  - reduced_tone_errors
+  - improved_formal_writing_consistency

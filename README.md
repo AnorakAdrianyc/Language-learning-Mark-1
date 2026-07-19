@@ -45,6 +45,12 @@ code .
 │   └── writing-style-transfer.md
 ├── examples/                          # Reference outputs and revisions
 │   └── sample-replies.md
+├── agentic/                           # Agent workflow definitions (KAG)
+│   └── kag-workflow.yaml
+├── kag/                               # Knowledge graph data
+│   └── graph.json
+├── web/                               # Temporary graph visualization
+│   └── graph-viewer.html
 └── resources/                         # External learning links/tools
     └── useful-links.md
 </code></pre> | ## 📁 建議專案結構<br><pre><code>.
@@ -60,6 +66,12 @@ code .
 │   └── writing-style-transfer.md
 ├── examples/                          # 參考答案與改寫示範
 │   └── sample-replies.md
+├── agentic/                           # 代理工作流定義（KAG）
+│   └── kag-workflow.yaml
+├── kag/                               # 知識圖譜資料
+│   └── graph.json
+├── web/                               # 臨時圖譜視覺化頁面
+│   └── graph-viewer.html
 └── resources/                         # 外部學習資源
     └── useful-links.md
 </code></pre> |
@@ -67,6 +79,16 @@ code .
 | English | 中文 |
 |---|---|
 | ## 🛠️ Usage Scenario (Real Workflow)<br><br>**Situation:** Your boss sends a Chinese email asking for a quarterly summary.<br><br>1. Open `exercises/report-summary-practice.md`.<br>2. Let Copilot draft the first reply/report structure.<br>3. Refine tone and clarity in Copilot Chat.<br>4. Check local appropriateness with HKChat.<br>5. Save final version to your personal phrase bank for reuse.<br><br>Result: faster response, more professional written Chinese, fewer tone mistakes. | ## 🛠️ 使用情境（真實工作流）<br><br>**場景：** 老細 send 咗封中文 email，叫你交季度報告。<br><br>1. 打開 `exercises/report-summary-practice.md`。<br>2. 先用 Copilot 出初稿同大綱。<br>3. 用 Copilot Chat 執語氣、執用字。<br>4. 去 HKChat 確認夠唔夠「港式職場 feel」。<br>5. 最後存返入自己詞庫，下次即拎即用。<br><br>效果：回覆更快、用語更專業、少踩語氣地雷。 |
+
+| English | 中文 |
+|---|---|
+| ## 🤖 Agentic System (KAG) + Temporary Web Graph<br><br>This repository now includes a lightweight **agentic KAG scaffold**:<br>- `agentic/kag-workflow.yaml`: multi-agent flow (intake → retrieval → drafting → review → HK tone check → memory).<br>- `kag/graph.json`: starter knowledge graph nodes and links for writing/reading practice.<br>- `web/graph-viewer.html`: temporary Obsidian-like graph view in browser.<br><br>### Run the temporary visualization<br><pre><code>cd Language-learning-Mark-1
+python3 -m http.server 8000
+# Open http://localhost:8000/web/graph-viewer.html
+</code></pre>Use it to inspect how tasks, prompts, tone checks, and phrase memory connect. | ## 🤖 Agentic System（KAG）+ 臨時 Web 圖譜視覺化<br><br>而家 repo 加咗一套輕量 **agentic KAG 骨架**：<br>- `agentic/kag-workflow.yaml`：多代理流程（需求理解 → 檢索 → 起草 → 修訂 → 港式語氣校對 → 記憶回寫）。<br>- `kag/graph.json`：寫作／閱讀訓練嘅起始知識圖譜。<br>- `web/graph-viewer.html`：臨時 Obsidian 風格圖譜檢視頁。<br><br>### 點樣開個臨時視覺化頁面<br><pre><code>cd Language-learning-Mark-1
+python3 -m http.server 8000
+# 瀏覽器開 http://localhost:8000/web/graph-viewer.html
+</code></pre>你可以用佢睇清楚任務、提示詞、語氣校對同詞彙記憶之間嘅關係。 |
 
 | English | 中文 |
 |---|---|

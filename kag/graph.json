@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "name": "HK Workplace Chinese KAG",
+    "description": "Knowledge graph for workplace writing and technical reading practice.",
+    "language": ["en", "zh-Hant"]
+  },
+  "nodes": [
+    { "id": "n1", "label": "Email Reply / 電郵回覆", "group": "task" },
+    { "id": "n2", "label": "Report Summary / 報告摘要", "group": "task" },
+    { "id": "n3", "label": "Meeting Minutes / 會議紀錄", "group": "task" },
+    { "id": "n4", "label": "Contract Reading / 合約閱讀", "group": "reading" },
+    { "id": "n5", "label": "Notice Reading / 通告閱讀", "group": "reading" },
+    { "id": "n6", "label": "Formal HK Tone / 港式正式語氣", "group": "style" },
+    { "id": "n7", "label": "Copilot Prompt Bank / Copilot 提示詞", "group": "tool" },
+    { "id": "n8", "label": "HKChat Context Check / HKChat 語境校對", "group": "tool" },
+    { "id": "n9", "label": "Spoken→Written Converter / 口語轉書面語", "group": "process" },
+    { "id": "n10", "label": "Phrase Memory / 詞彙記憶庫", "group": "memory" }
+  ],
+  "edges": [
+    { "from": "n1", "to": "n6", "label": "needs" },
+    { "from": "n2", "to": "n6", "label": "needs" },
+    { "from": "n3", "to": "n6", "label": "needs" },
+    { "from": "n1", "to": "n7", "label": "uses" },
+    { "from": "n2", "to": "n7", "label": "uses" },
+    { "from": "n3", "to": "n7", "label": "uses" },
+    { "from": "n6", "to": "n8", "label": "verified_by" },
+    { "from": "n9", "to": "n1", "label": "feeds" },
+    { "from": "n9", "to": "n2", "label": "feeds" },
+    { "from": "n4", "to": "n10", "label": "stores_terms" },
+    { "from": "n5", "to": "n10", "label": "stores_terms" },
+    { "from": "n10", "to": "n1", "label": "improves" },
+    { "from": "n10", "to": "n2", "label": "improves" }
+  ]
+}

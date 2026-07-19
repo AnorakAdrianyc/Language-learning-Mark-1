@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HK Workplace Chinese KAG Graph Viewer</title>
+  <script src="https://unpkg.com/vis-network@9.1.9/dist/vis-network.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #0f172a; color: #e2e8f0; }
+    header { padding: 12px 16px; border-bottom: 1px solid #334155; }
+    #graph { height: calc(100vh - 80px); }
+    .hint { font-size: 13px; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>KAG Graph (Temporary Obsidian-like View)</strong>
+    <div class="hint">Pan/zoom to explore links between tasks, tools, style, and phrase memory.</div>
+  </header>
+  <div id="graph"></div>
+
+  <script>
+    async function main() {
+      const response = await fetch('../kag/graph.json');
+      const data = await response.json();
+
+      const groups = {
+        task: { color: '#38bdf8' },
+        reading: { color: '#a78bfa' },
+        style: { color: '#f59e0b' },
+        tool: { color: '#10b981' },
+        process: { color: '#f43f5e' },
+        memory: { color: '#22c55e' }
+      };
+
+      const nodes = new vis.DataSet(
+        data.nodes.map(n => ({ ...n, title: n.label }))
+      );
+      const edges = new vis.DataSet(
+        data.edges.map(e => ({ ...e, arrows: 'to' }))
+      );
+
+      const container = document.getElementById('graph');
+      const network = new vis.Network(container, { nodes, edges }, {
+        groups,
+        interaction: { hover: true },
+        physics: { stabilization: true },
+        nodes: { shape: 'dot', size: 18, font: { color: '#e2e8f0' } },
+        edges: { color: '#64748b', font: { color: '#cbd5e1', size: 10 } }
+      });
+
+      network.on('click', function (params) {
+        if (!params.nodes.length) return;
+        const nodeId = params.nodes[0];
+        const node = nodes.get(nodeId);
+        document.title = `Selected: ${node.label}`;
+      });
+    }
+
+    main().catch(err => {
+      document.getElementById('graph').innerHTML =
+        '<p style="padding:16px;color:#fca5a5">Failed to load graph data. Serve this repo via a local web server.</p>';
+      console.error(err);
+    });
+  </script>
+</body>
+</html>
